@@ -18,5 +18,7 @@ package:
     - ./bin/**
 
 functions:
-  logger: 
-    handler: bin/main
+  slack:
+     handler: bin/main
+     environment:
+      INCOMING_WEBHOOK_URL: ${env:SLACK_INCOMING_WEBHOOK_URL}
