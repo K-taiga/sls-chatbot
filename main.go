@@ -16,7 +16,7 @@ func handler() error {
 		return err
 	}
 
-	message := fmt.Sprintf("実績値: %s USD、月末の予測値: %s USD", *spend.ActualSpend.Amount, *spend.ForecastedSpend.Ammount)
+	message := fmt.Sprintf("実績値: %s USD、月末の予測値: %s USD", *spend.ActualSpend.Amount, *spend.ForecastedSpend.Amount)
 	webhookMessage := &slack.WebhookMessage{Text: message}
 	return slack.PostWebhook(incomingWebhookURL, webhookMessage)
 }
