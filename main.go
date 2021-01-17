@@ -17,8 +17,10 @@ func handler(event events.CloudWatchEvent) error {
 		return err
 	}
 
-	if findings != nil {
-		for _, finding := range *findings {
+	filteredFindings := filter(findings)
+
+	if filteredFindings != nil {
+		for _, finding := range *filteredFindings {
 			err := finding.postWebhook()
 			if err != nil {
 				return err
