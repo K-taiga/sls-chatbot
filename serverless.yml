@@ -10,6 +10,10 @@ provider:
   logRetentionInDays: 7
   memorySize: 128
   versionFunctions: false
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action: 'budgets:ViewBudget'
+      Resource: '*'
 
 package:
   exclude:
