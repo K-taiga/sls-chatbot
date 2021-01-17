@@ -36,7 +36,8 @@ functions:
               - 'Security Hub Findings - Imported'
             detail:
               findings:
-                ProductFields:
-                  'aws/securityhub/ProductName':
-                  - 'GuardDuty'
-                  - 'IAM Access Analyzer'
+                Severity:
+                  Label:
+                    - 'CRITICAL'
+                    - 'HIGH'
+                    - 'MEDIUM'
