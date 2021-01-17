@@ -2,18 +2,29 @@ package main
 
 import (
 	"fmt"
-	"os"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/slack-go/slack"
 )
 
-var incomingWebhookURL = os.Getenv("INCOMING_WEBHOOK_URL")
+func handler(event events.CloudWatchEvent) error {
 
-func handler() error {
 	spend, err := describeSpend()
+	findings, err := parse(event.Detail)
+
 	if err != nil {
 		return err
+	}
+
+	if findings != nil {
+		for _, finding := range *findings {
+			err := finding.postWebhook()
+			if err != nil {
+				return err
+			}
+		}
+		return nil
 	}
 
 	message := fmt.Sprintf("実績値: %s USD、月末の予測値: %s USD", *spend.ActualSpend.Amount, *spend.ForecastedSpend.Amount)
